@@ -1,12 +1,18 @@
 # STEVE
-Starting Training on Embedded Vehicle Engineering
+**Starting Training on Embedded Vehicle Engineering**
 
-Meet STEVE! My little robot car from the OSOYOO kit. Together, we're going to learn about embedded systems, sensor integration, real-time controls, and algorithms! 
+Meet STEVE! My little robot car from the OSOYOO kit. Together, we're going to learn about embedded systems, sensor integration, real-time controls, and autonomy! 
 
+## Project Goals
+ - Gain hands-on experience with Arduino and C++
+ - Deepen understanding of Embedded Systems Architecture
+ - Implement and tune common robotic behaviors
+ - Develop an extensible framework for continued experimentation
+   
 ## Getting Started
-I'll be following the tutorials from this [robot car kit](https://osoyoo.com/2020/05/12/v2-1-robot-car-kit-for-arduino-tutorial-introduction/) but without using the sample code.
+I'll be following the tutorials from this [robot car kit](https://osoyoo.com/2020/05/12/v2-1-robot-car-kit-for-arduino-tutorial-introduction/) but writing all my own code without using the sample code.
 
-You can follow along and see what I've learned in [Pages](https://megcrunyan.github.io/steve/) if you'd like! 
+You can follow along and see what I've learned in [Pages](https://megcrunyan.github.io/steve/) or fork the repo! 
 
 To use STEVE, you may download this zipped repository or use the following command `git clone https://github.com/megcrunyan/steve.git` 
 

@@ -1,3 +1,4 @@
+// Exercise 4: LED Power
 int redLedPin = 2;
 int count = 0;
 void setup() {

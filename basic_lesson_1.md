@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: "The Basics: Lesson 1"
 permalink: /basic-lesson-1/
 ---

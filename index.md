@@ -25,7 +25,7 @@ More lessons coming soon!
 
 ## Roadmap
 - [ ] Basics tutorials
-  - [ ] What is Arduino, OSOYOO UNO Board, Arduino IDE, Hello World
+  - [x] What is Arduino, OSOYOO UNO Board, Arduino IDE, Hello World
   - [ ] Serial Monitor, Receiver Module/controller, Active Buzzer, Obstacle Avoidance, Track Sensor, Ultrasonic Sensor,
   - [ ] Controlling with Remote, Controlling DC motor, Controlling Servos, IR transmit and receive
 - [ ] Beginner Projects

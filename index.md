@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Home
+title: STEVE
 ---
 # STEVE
 **Starting Training on Embedded Vehicle Engineering**
@@ -18,7 +18,7 @@ I'll be following the tutorials from this [robot car kit](https://osoyoo.com/202
 You can follow along and see what I've learned in [Pages](https://megcrunyan.github.io/steve/) or fork the repo! 
 
 ## Lessons
-[Basic Lesson 1 - Getting To Know Arduino](https://megcrunyan.github.io/steve/basic-lesson-1/)
+### [Basic Lesson 1 - Getting To Know Arduino](https://megcrunyan.github.io/steve/basic-lesson-1/)
 
 More lessons coming soon!
 

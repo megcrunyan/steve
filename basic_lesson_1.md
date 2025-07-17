@@ -50,7 +50,7 @@ This gave me a deeper appreciation for what's happening under the hood when I up
 This foundation will help make STEVE a functioning, reliable, and safe robot car. Next up: Hello World and Building Steve!
 
 ## References
-- Basic Lesson 1 and 2 from [OSOYOO RObot Car Kit](https://osoyoo.com/2020/05/12/v2-1-robot-car-kit-for-arduino-tutorial-introduction/#3)
+- Basic Lesson 1 and 2 from [OSOYOO Robot Car Kit](https://osoyoo.com/2020/05/12/v2-1-robot-car-kit-for-arduino-tutorial-introduction/#3)
 - [How to Use A Breadboard For Electronics and Circuits](https://www.sciencebuddies.org/science-fair-projects/references/how-to-use-a-breadboard#integrated-circuits)
 - [How Microcontrollers Work](https://electronics.howstuffworks.com/microcontroller.htm)
 

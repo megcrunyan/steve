@@ -19,7 +19,7 @@ You can follow along and see what I've learned in [Pages](https://megcrunyan.git
 
 ## Lessons
 ### [Basic Lesson 1 - Getting To Know Arduino](https://megcrunyan.github.io/steve/basic-lesson-1/)
-### [Basic Lesson 1 - Hello World!](https://megcrunyan.github.io/steve/basic-lesson-2/)
+### [Basic Lesson 2 - Hello World!](https://megcrunyan.github.io/steve/basic-lesson-2/)
 
 More lessons coming soon!
 

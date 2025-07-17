@@ -7,7 +7,9 @@ permalink: /basic-lesson-1/
 
 My board is an Arduino Uno R3 manufactured by OSOYOO. Let's get to know the board and the hardware components.
 
-![Pin Out Board](./pin_out_board.png, "Pin Out Board from OSOYOO Tutorial")
+![Pin Out Board](/assets/images/pin_out_board.png)
+Pin Out Board from OSOYOO Tutorial
+
 ## The Brains - Microcontroller Chip
 
 My chip is the **ATmega328P** microcontroller. It uses a **16 MHz** piezoelectric crystal that acts as a clock signal to keep everything in sync. Here's a breakdown of its onboard memory: 

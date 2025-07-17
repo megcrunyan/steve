@@ -1,2 +1,6 @@
 
 theme: jekyll-theme-leap-day
+
+header_pages:
+  - index.md
+  - basic_lesson_1.md

@@ -23,7 +23,7 @@ void setup() {
 }
 
 void loop() {
-  // Go forward 2s, hslf speed
+  // Go forward 2s, half speed
   digitalWrite(motorAPin1, HIGH);
   digitalWrite(motorBPin1, HIGH);
   analogWrite(ENAPin, 128);

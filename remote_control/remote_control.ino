@@ -8,13 +8,13 @@ const int motorBPin2=10;
 const int ENAPin=5;
 const int ENBPin=6;
 
-// Define IR remote pin
+// Define IR remote pin + vars
 const int IRReceivePin=12;
 int direction = 0;
 int command;
 unsigned long last_input;
 
-// Define IR Sensor Pins
+// Define IR Sensor Pins + vars
 // From back left to right
 const int IRPin1 = A0;
 const int IRPin2 = A1;
@@ -26,7 +26,26 @@ int IR2;
 int IR3;
 int IR4;
 int IR5;
-
+bool calibrated;
+struct setPoint {
+  public:
+  int IR1;
+  int IR2;
+  int IR3;
+  int IR4;
+  int IR5;
+};
+setPoint p;
+int on;
+int scaleFactor[5] = {-2, -1, 0, 1, 2};
+int error[5] = {0, 0, 0, 0, 0};
+int cumulative_error = 0;
+int correction;
+int prev_err = 0;
+int kp = 0;
+int ki = 0;
+int kd = 0;
+unsigned long last_line;
 // Define Speed Modes
 int speedMode1 = 128;
 int speedMode2 = 48;
@@ -47,6 +66,8 @@ void setup() {
   digitalWrite(motorAPin2, LOW);
   digitalWrite(motorBPin1, LOW);
   digitalWrite(motorBPin2, LOW);
+  // set up line following mode
+  calibrated = false;
 }
 
 void loop() {
@@ -60,8 +81,10 @@ void loop() {
       Serial.println(command);
       if(command == 68){ 
         line_following();
-      else:
+      }
+      else{
         keep_going(command);
+      }
       IrReceiver.resume();
     }
     last_input = millis();
@@ -110,17 +133,17 @@ void electrical_brake(){
   digitalWrite(motorBPin2, LOW);
 }
 
-void turn_left(){
+void turn_right(){
   analogWrite(ENAPin, speedMode2);
   analogWrite(ENBPin, speedMode1);
 }
 
-void turn_right(){
+void turn_left(){
   analogWrite(ENAPin, speedMode1);
   analogWrite(ENBPin, speedMode2);
 }
 
-void spin_left(){
+void spin_right(){
   digitalWrite(motorBPin2, LOW);
   digitalWrite(motorAPin2, LOW);
   delay(100);
@@ -130,7 +153,7 @@ void spin_left(){
   analogWrite(ENBPin, speedMode1);
 }
 
-void spin_right(){
+void spin_left(){
   digitalWrite(motorAPin2, LOW);
   digitalWrite(motorBPin1, LOW);
   delay(100);
@@ -140,14 +163,78 @@ void spin_right(){
   analogWrite(ENBPin, speedMode1);
 }
 void line_following(){
-  speedMode1 = 70;
-  speedMode2 = 30;
-  IR1 = analogRead(IRPin1);
+  if (!calibrated){
+  p = {
+    analogRead(IRPin1), 
+    analogRead(IRPin2), 
+    analogRead(IRPin3), 
+    analogRead(IRPin4),
+    analogRead(IRPin5)
+    };
+    calibrated = true;
+  }
+
+  go_forward();
+  on = p.IR3 + 100;  // Adding tolerance in case of shadows
+  IR1 = analogRead(IRPin1); 
   IR2 = analogRead(IRPin2);
   IR3 = analogRead(IRPin3);
   IR4 = analogRead(IRPin4);
   IR5 = analogRead(IRPin5);
-
+  
+  if (IR1 < on){
+    error[0] = (IR1 - p.IR1)*scaleFactor[0];
+    cumulative_error += error[0]/5;
+    last_line = millis();
+  }
+  if (IR2 < on){
+    error[1] = (IR2 - p.IR2)*scaleFactor[1];
+    cumulative_error += error[1]/5;
+    last_line = millis();
+  }
+  if (IR3 < on){
+    error[2] = (IR3 - p.IR3)*scaleFactor[2];
+    cumulative_error += error[2]/5;
+    last_line = millis();
+  }
+  if (IR4 < on){
+    error[3] = (IR4 - p.IR4)*scaleFactor[3];
+    cumulative_error += error[3]/5;
+    last_line = millis();
+  }
+  if (IR5 < on){
+    error[4] = (IR5 - p.IR5)*scaleFactor[4];
+    cumulative_error += error[4]/5;
+    last_line = millis();
+  }
+  int err_sum = 0;
+  for (int i = 0; i < sizeof(error); i++){
+    err_sum += error[i];
+  } 
+  correction = kp*err_sum + ki*cumulative_error + kd*(err_sum - prev_err);
+  prev_err = err_sum;
+  if (correction < 0){
+    correction = correction * -1;
+    if (correction > speedMode1){ //keep from an invalid value
+      correction = 0;
+    }
+    analogWrite(ENAPin, speedMode1);
+    analogWrite(ENBPin, correction);
+  }
+  if (correction > 0){
+    if (correction > speedMode1){
+      correction = 0;
+    }
+    analogWrite(ENAPin, correction);
+    analogWrite(ENBPin, speedMode1);
+  }
+  if ((IR1 > on) & (IR2 > on) & (IR3 > on) & (IR4 > on) & (IR5 > on)){
+    go_forward();
+    if(millis() - last_line > 3000) {
+    friction_brake();
+    } 
+  }
+}
 
 void keep_going(int command){
   switch (command){
@@ -207,3 +294,4 @@ void keep_going(int command){
         break;
     }
   }
+

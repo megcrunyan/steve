@@ -10,11 +10,24 @@ const int ENBPin=6;
 
 // Define IR remote pin
 const int IRReceivePin=12;
-int direction = 0;g
+int direction = 0;
 int command;
 unsigned long last_input;
 
-// Define Speed Modes, default is medium
+// Define IR Sensor Pins
+// From back left to right
+const int IRPin1 = A0;
+const int IRPin2 = A1;
+const int IRPin3 = A2;
+const int IRPin4 = A3;
+const int IRPin5 = A4;
+int IR1;
+int IR2;
+int IR3;
+int IR4;
+int IR5;
+
+// Define Speed Modes
 int speedMode1 = 128;
 int speedMode2 = 48;
 
@@ -44,18 +57,21 @@ void loop() {
     }
     else{
       command = IrReceiver.decodedIRData.command;
-      keep_going(command);
+      Serial.println(command);
+      if(command == 68){ 
+        line_following();
+      else:
+        keep_going(command);
       IrReceiver.resume();
     }
     last_input = millis();
     }
-  if(millis() - last_input > 500) {
+  if(millis() - last_input > 1000) {
     friction_brake();
   }
 }
 
-void go_forward(){
-  // Go forward half speed
+void go_backward(){
   digitalWrite(motorAPin2, LOW);
   digitalWrite(motorBPin2, LOW);
   delay(100);
@@ -65,9 +81,7 @@ void go_forward(){
   analogWrite(ENBPin, speedMode1);
 }
 
-void go_backward(){
-  // Go forward half speed
-  // TODO - add speed mode for analogWrite instead of num
+void go_forward(){
   digitalWrite(motorAPin1, LOW);
   digitalWrite(motorBPin1, LOW);
   delay(100);
@@ -125,6 +139,15 @@ void spin_right(){
   analogWrite(ENAPin, speedMode1);
   analogWrite(ENBPin, speedMode1);
 }
+void line_following(){
+  speedMode1 = 70;
+  speedMode2 = 30;
+  IR1 = analogRead(IRPin1);
+  IR2 = analogRead(IRPin2);
+  IR3 = analogRead(IRPin3);
+  IR4 = analogRead(IRPin4);
+  IR5 = analogRead(IRPin5);
+
 
 void keep_going(int command){
   switch (command){
@@ -184,5 +207,3 @@ void keep_going(int command){
         break;
     }
   }
-
-

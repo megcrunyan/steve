@@ -42,7 +42,7 @@ int error[5] = {0, 0, 0, 0, 0};
 int cumulative_error = 0;
 int correction;
 int prev_err = 0;
-int kp = 0;
+int kp = 1;
 int ki = 0;
 int kd = 0;
 unsigned long last_line;
@@ -89,7 +89,7 @@ void loop() {
     }
     last_input = millis();
     }
-  if(millis() - last_input > 1000) {
+  if(millis() - last_input > 750) {
     friction_brake();
   }
 }
@@ -97,7 +97,6 @@ void loop() {
 void go_backward(){
   digitalWrite(motorAPin2, LOW);
   digitalWrite(motorBPin2, LOW);
-  delay(100);
   digitalWrite(motorAPin1, HIGH);
   digitalWrite(motorBPin1, HIGH);
   analogWrite(ENAPin, speedMode1);
@@ -107,7 +106,6 @@ void go_backward(){
 void go_forward(){
   digitalWrite(motorAPin1, LOW);
   digitalWrite(motorBPin1, LOW);
-  delay(100);
   digitalWrite(motorAPin2, HIGH);
   digitalWrite(motorBPin2, HIGH);
   analogWrite(ENAPin, speedMode1);
@@ -126,7 +124,6 @@ void electrical_brake(){
   digitalWrite(motorAPin2, HIGH);
   digitalWrite(motorBPin1, HIGH);
   digitalWrite(motorBPin2, HIGH);
-  delay(100);
   digitalWrite(motorAPin1, LOW);
   digitalWrite(motorAPin2, LOW);
   digitalWrite(motorBPin1, LOW);
@@ -146,7 +143,6 @@ void turn_left(){
 void spin_right(){
   digitalWrite(motorBPin2, LOW);
   digitalWrite(motorAPin2, LOW);
-  delay(100);
   digitalWrite(motorAPin2, HIGH);
   digitalWrite(motorBPin1, HIGH);
   analogWrite(ENAPin, speedMode1);
@@ -156,7 +152,6 @@ void spin_right(){
 void spin_left(){
   digitalWrite(motorAPin2, LOW);
   digitalWrite(motorBPin1, LOW);
-  delay(100);
   digitalWrite(motorAPin1, HIGH);
   digitalWrite(motorBPin2, HIGH);
   analogWrite(ENAPin, speedMode1);
